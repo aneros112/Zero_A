@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zero Azrael - Control Panel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: radial-gradient(circle at top left, #0a0a0a, #000);
+      color: #f00;
+      font-family: 'Share Tech Mono', monospace;
+      height: 100vh;
+      display: flex;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* scanline effect */
+    body::before {
+      content: "";
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(255, 0, 0, 0.05),
+        rgba(255, 0, 0, 0.05) 2px,
+        transparent 2px,
+        transparent 4px
+      );
+      top: -50%;
+      left: -50%;
+      animation: move 12s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes move {
+      from { transform: translateY(0); }
+      to { transform: translateY(100px); }
+    }
+
+    .video-section {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #111;
+      border-right: 1px solid #f00;
+      box-shadow: inset 0 0 20px rgba(255,0,0,0.3);
+      z-index: 1;
+    }
+
+    .video-section video {
+      width: 270px;
+      height: 480px;
+      border-radius: 8px;
+      box-shadow: 0 0 25px rgba(255, 0, 0, 0.4);
+      object-fit: cover;
+      border: 1px solid #f00;
+    }
+
+    .control-panel {
+      flex: 1;
+      padding: 30px;
+      background: rgba(15, 15, 15, 0.95);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      z-index: 1;
+    }
+
+    .control-panel h1 {
+      color: #ff1a1a;
+      margin-bottom: 25px;
+      font-size: 22px;
+      text-align: center;
+      border-bottom: 1px solid #f00;
+      padding-bottom: 10px;
+      letter-spacing: 1px;
+    }
+
+    .buttons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 15px;
+    }
+
+    button {
+      padding: 12px;
+      border: 1px solid #f00;
+      border-radius: 5px;
+      background: #111;
+      color: #f33;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+    }
+
+    button:hover {
+      background: #f00;
+      color: #000;
+      box-shadow: 0 0 15px #f00;
+    }
+
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #000;
+      color: #f33;
+      padding: 20px 30px;
+      border-radius: 6px;
+      border: 1px solid #f00;
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+      z-index: 999;
+      font-size: 16px;
+      display: none;
+      text-align: center;
+    }
+
+    .quote {
+      margin-top: auto;
+      font-size: 12px;
+      color: #888;
+      text-align: center;
+      font-style: italic;
+      padding-top: 15px;
+      border-top: 1px solid #f00;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="video-section">
+    <video src="phone-sim.mp4" autoplay muted loop></video>
+  </div>
+
+  <div class="control-panel">
+    <h1>Zero Azrael // Control Panel</h1>
+    <div class="buttons-grid">
+      <button onclick="showPopup('[+] Camera Activated')">Activate Camera</button>
+      <button onclick="showPopup('[+] Screen Locked')">Lock Screen</button>
+      <button onclick="showPopup('[+] Flash Enabled')">Enable Flash</button>
+      <button onclick="showPopup('[+] Photos Extracted')">Extract Photos</button>
+      <button onclick="showPopup('[+] Audio Recording Started')">Record Audio</button>
+      <button onclick="showPopup('[+] Screen Recording Initiated')">Record Screen</button>
+      <button onclick="showPopup('[+] Messages Deleted')">Delete Messages</button>
+      <button onclick="showPopup('[+] Location Tracked')">Track Location</button>
+      <button onclick="showPopup('[+] Device Shutdown')">Shutdown Device</button>
+      <button onclick="showPopup('[+] File Sent')">Send File</button>
+      <button onclick="showPopup('[+] Contacts Retrieved')">Retrieve Contacts</button>
+      <button onclick="showPopup('[+] Microphone Enabled')">Enable Mic</button>
+      <button onclick="showPopup('[+] Notifications Displayed')">Show Notifications</button>
+      <button onclick="showPopup('[+] Call Logs Fetched')">Fetch Call Logs</button>
+      <button onclick="showPopup('[+] Auto Call Executed')">Make Call</button>
+      <button onclick="showPopup('[+] SMS Sent')">Send SMS</button>
+      <button onclick="showPopup('[+] WiFi Disabled')">Disable WiFi</button>
+      <button onclick="showPopup('[+] Browser Opened')">Open Browser</button>
+      <button onclick="showPopup('[+] Instant Screenshot Captured')">Take Screenshot</button>
+      <button onclick="showPopup('[+] Files Downloaded')">Download Files</button>
+      <button onclick="showPopup('[+] Bluetooth Enabled')">Enable Bluetooth</button>
+      <button onclick="showPopup('[+] Mobile Data Disabled')">Disable Data</button>
+      <button onclick="showPopup('[+] Airplane Mode Enabled')">Airplane Mode</button>
+      <button onclick="showPopup('[+] Volume Maxed Out')">Max Volume</button>
+      <button onclick="showPopup('[+] Volume Muted')">Mute Volume</button>
+      <button onclick="showPopup('[+] Vibration Activated')">Activate Vibration</button>
+      <button onclick="showPopup('[+] Wallpaper Changed')">Change Wallpaper</button>
+    </div>
+
+    <div class="quote">"Control is an illusion... Zero Azrael sees all."</div>
+  </div>
+
+  <div class="popup" id="popup"></div>
+
+  <script>
+    function showPopup(message) {
+      const popup = document.getElementById("popup");
+      popup.innerText = message;
+      popup.style.display = "block";
+      setTimeout(() => {
+        popup.style.display = "none";
+      }, 2000);
+    }
+  </script>
+</body>
+</html>

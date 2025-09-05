@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zero Azrael - Access Panel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: radial-gradient(circle at top left, #0a0a0a, #000);
+      color: #f00;
+      font-family: 'Share Tech Mono', monospace;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .terminal {
+      width: 95%;
+      max-width: 700px;
+      background: rgba(15, 15, 15, 0.95);
+      border: 1px solid #f00;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 0 25px rgba(255, 0, 0, 0.4);
+      position: relative;
+    }
+
+    .terminal-header {
+      padding-bottom: 12px;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #f00;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .system-name {
+      font-weight: bold;
+      font-size: 18px;
+      color: #ff1a1a;
+      letter-spacing: 1px;
+    }
+
+    .hacker-quote {
+      font-size: 12px;
+      color: #aaa;
+      font-style: italic;
+      text-align: right;
+    }
+
+    .console-output {
+      height: 150px;
+      overflow-y: auto;
+      background: #0a0a0a;
+      border: 1px solid #f00;
+      border-radius: 4px;
+      padding: 10px;
+      margin-bottom: 15px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #f33;
+    }
+
+    .console-line { margin-bottom: 5px; }
+    .success { color: #0f0; }
+    .warning { color: #ff0; }
+
+    .input-group { margin-top: 15px; }
+    .input-label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+      color: #ff4444;
+    }
+
+    .code-input {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      background: #000;
+      color: #f33;
+      border: 1px solid #f00;
+      border-radius: 4px;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    .code-input:focus { box-shadow: 0 0 10px #f00; }
+
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      background: #f00;
+      color: #000;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .submit-btn:hover {
+      background: #ff3333;
+      box-shadow: 0 0 15px #f00;
+    }
+
+    .status-bar {
+      margin-top: 15px;
+      padding: 6px 10px;
+      background: #000;
+      border: 1px solid #f00;
+      border-radius: 4px;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      color: #f44;
+    }
+
+    .hint {
+      margin-top: 10px;
+      font-size: 12px;
+      color: #777;
+      text-align: center;
+    }
+
+    /* Subtle animated scanline overlay */
+    body::before {
+      content: "";
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(255, 0, 0, 0.05),
+        rgba(255, 0, 0, 0.05) 2px,
+        transparent 2px,
+        transparent 4px
+      );
+      top: -50%;
+      left: -50%;
+      animation: move 12s linear infinite;
+    }
+
+    @keyframes move {
+      from { transform: translateY(0); }
+      to { transform: translateY(100px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="terminal">
+    <div class="terminal-header">
+      <div class="system-name">Zero Azrael // Access Panel</div>
+      <div class="hacker-quote">"The system is just an illusion of control."</div>
+    </div>
+
+    <div class="console-output" id="consoleOutput">
+      <div class="console-line">[+] Initializing Zero Azrael...</div>
+      <div class="console-line success">[+] Target interface detected</div>
+      <div class="console-line">[!] Authorization key required</div>
+    </div>
+
+    <div class="input-group">
+      <label class="input-label">Enter Access Key:</label>
+      <input type="password" class="code-input" id="codeInput" placeholder="********">
+      <button class="submit-btn" onclick="validateCode()">Authenticate</button>
+    </div>
+
+    <div class="status-bar">
+      <span id="status">Status: Awaiting input</span>
+      <span>Session ID: ZR-093A</span>
+    </div>
+
+    <div class="hint">Ensure you enter the correct key for full system access</div>
+  </div>
+
+  <script>
+    function validateCode() {
+      const codeInput = document.getElementById('codeInput');
+      const consoleOutput = document.getElementById('consoleOutput');
+      const statusBar = document.getElementById('status');
+
+      if (codeInput.value === 'ZERO123') {
+        consoleOutput.innerHTML += '<div class="console-line success">[+] Key verified successfully</div>';
+        consoleOutput.innerHTML += '<div class="console-line">[+] Loading secured modules...</div>';
+        statusBar.textContent = 'Status: Access Granted';
+        consoleOutput.scrollTop = consoleOutput.scrollHeight;
+
+        setTimeout(() => {
+          window.location.href = 'number.html';
+        }, 2000);
+      } else {
+        consoleOutput.innerHTML += '<div class="console-line warning">[!] Invalid key. Try again.</div>';
+        statusBar.textContent = 'Status: Authentication Failed';
+        consoleOutput.scrollTop = consoleOutput.scrollHeight;
+      }
+    }
+
+    // Allow Enter key submission
+    document.getElementById('codeInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        validateCode();
+      }
+    });
+  </script>
+</body>
+</html>
