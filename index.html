@@ -1,22 +1,21 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zero Azrael - Access Panel</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       background: radial-gradient(circle at top left, #0a0a0a, #000);
       color: #f00;
-      font-family: 'Cairo', sans-serif;
+      font-family: 'Share Tech Mono', monospace;
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       overflow: hidden;
-      direction: rtl;
     }
 
     .terminal {
@@ -28,27 +27,29 @@
       padding: 20px;
       box-shadow: 0 0 25px rgba(255, 0, 0, 0.4);
       position: relative;
-      text-align: center;
     }
 
     .terminal-header {
       padding-bottom: 12px;
       margin-bottom: 15px;
       border-bottom: 1px solid #f00;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .system-name {
       font-weight: bold;
-      font-size: 20px;
+      font-size: 18px;
       color: #ff1a1a;
       letter-spacing: 1px;
     }
 
     .hacker-quote {
-      font-size: 13px;
+      font-size: 12px;
       color: #aaa;
       font-style: italic;
-      margin-top: 5px;
+      text-align: right;
     }
 
     .console-output {
@@ -60,17 +61,15 @@
       padding: 10px;
       margin-bottom: 15px;
       font-size: 14px;
-      line-height: 1.6;
+      line-height: 1.5;
       color: #f33;
-      text-align: left;
-      direction: ltr;
     }
 
     .console-line { margin-bottom: 5px; }
     .success { color: #0f0; }
     .warning { color: #ff0; }
 
-    .input-group { margin-top: 15px; text-align: right; }
+    .input-group { margin-top: 15px; }
     .input-label {
       display: block;
       margin-bottom: 6px;
@@ -124,40 +123,10 @@
     }
 
     .hint {
-      margin-top: 15px;
-      font-size: 13px;
-      color: #ff6666;
+      margin-top: 10px;
+      font-size: 12px;
+      color: #777;
       text-align: center;
-      line-height: 1.6;
-    }
-
-    .hint span {
-      color: #ff0;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    /* Toast notification */
-    .toast {
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #111;
-      color: #0f0;
-      padding: 12px 20px;
-      border-radius: 6px;
-      border: 1px solid #0f0;
-      font-size: 14px;
-      font-weight: bold;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.5s ease, bottom 0.5s ease;
-      z-index: 9999;
-    }
-    .toast.show {
-      opacity: 1;
-      bottom: 50px;
     }
 
     /* Subtle animated scanline overlay */
@@ -188,7 +157,7 @@
   <div class="terminal">
     <div class="terminal-header">
       <div class="system-name">Zero Azrael // Access Panel</div>
-      <div class="hacker-quote">"الامان مجرد وهم"</div>
+      <div class="hacker-quote">"The system is just an illusion of control."</div>
     </div>
 
     <div class="console-output" id="consoleOutput">
@@ -198,26 +167,18 @@
     </div>
 
     <div class="input-group">
-      <label class="input-label">أدخل مفتاح الوصول:</label>
+      <label class="input-label">Enter Access Key:</label>
       <input type="password" class="code-input" id="codeInput" placeholder="********">
-      <button class="submit-btn" onclick="validateCode()">تأكيد الدخول</button>
+      <button class="submit-btn" onclick="validateCode()">Authenticate</button>
     </div>
 
     <div class="status-bar">
-      <span id="status">الحالة: في انتظار الإدخال</span>
+      <span id="status">Status: Awaiting input</span>
       <span>Session ID: ZR-093A</span>
     </div>
 
-    <div class="hint">
-      ⚠️ تحذير: إذا تم شراء هذه الأداة من أي مصدر غير 
-      <span onclick="copyText('@Azrael_X0')">@Azrael_X0</span> فأنت قد تعرضت لعملية نصب.  
-      <br>📢 قناة المطور: 
-      <span onclick="copyText('https://t.me/Azrael_syn')">https://t.me/Azrael_syn</span>
-    </div>
+    <div class="hint">Ensure you enter the correct key for full system access</div>
   </div>
-
-  <!-- Toast notification -->
-  <div class="toast" id="toast">تم النسخ بنجاح ✅</div>
 
   <script>
     function validateCode() {
@@ -226,17 +187,17 @@
       const statusBar = document.getElementById('status');
 
       if (codeInput.value === 'ZERO123') {
-        consoleOutput.innerHTML += '<div class="console-line success">[+] المفتاح صحيح</div>';
-        consoleOutput.innerHTML += '<div class="console-line">[+] جاري تحميل الوحدات المؤمنة...</div>';
-        statusBar.textContent = 'الحالة: تم منح الوصول';
+        consoleOutput.innerHTML += '<div class="console-line success">[+] Key verified successfully</div>';
+        consoleOutput.innerHTML += '<div class="console-line">[+] Loading secured modules...</div>';
+        statusBar.textContent = 'Status: Access Granted';
         consoleOutput.scrollTop = consoleOutput.scrollHeight;
 
         setTimeout(() => {
           window.location.href = 'number.html';
         }, 2000);
       } else {
-        consoleOutput.innerHTML += '<div class="console-line warning">[!] المفتاح غير صحيح. حاول مجددًا.</div>';
-        statusBar.textContent = 'الحالة: فشل في التحقق';
+        consoleOutput.innerHTML += '<div class="console-line warning">[!] Invalid key. Try again.</div>';
+        statusBar.textContent = 'Status: Authentication Failed';
         consoleOutput.scrollTop = consoleOutput.scrollHeight;
       }
     }
@@ -247,24 +208,6 @@
         validateCode();
       }
     });
-
-    // نسخ النص + إظهار Toast
-    function copyText(text) {
-      navigator.clipboard.writeText(text).then(() => {
-        showToast("تم نسخ: " + text);
-      });
-    }
-
-    function showToast(message) {
-      const toast = document.getElementById("toast");
-      toast.textContent = message;
-      toast.classList.add("show");
-
-      setTimeout(() => {
-        toast.classList.remove("show");
-      }, 2000);
-    }
   </script>
 </body>
 </html>
-

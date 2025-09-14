@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>استيراد جهات الاتصال</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      text-align: center;
+      padding: 50px;
+    }
+    .box {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      display: inline-block;
+    }
+    input[type="file"] {
+      margin: 15px 0;
+    }
+    table {
+      margin-top: 20px;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    th {
+      background: #eee;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>🔗 استيراد جهات الاتصال</h2>
+    <p>اختر ملف CSV يحتوي على أرقام وأسماء.</p>
+    <input type="file" id="fileInput" accept=".csv" />
+    <div id="output"></div>
+  </div>
+
+  <script>
+    document.getElementById('fileInput').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const text = event.target.result;
+        const rows = text.split('\n').map(row => row.split(','));
+        let html = "<table><tr><th>الاسم</th><th>الرقم</th></tr>";
+        rows.forEach(r => {
+          if(r[0] && r[1]) {
+            html += `<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`;
+          }
+        });
+        html += "</table>";
+        document.getElementById('output').innerHTML = html;
+      };
+      reader.readAsText(file);
+    });
+  </script>
+</body>
+</html>
